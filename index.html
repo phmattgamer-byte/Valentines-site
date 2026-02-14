@@ -196,7 +196,6 @@ audio.addEventListener("play", () => {
 
 /* Proper lyric update */
 audio.addEventListener("timeupdate", () => {
-audio.addEventListener("timeupdate", () => {
     if (
         currentLyricIndex < lyrics.length &&
         audio.currentTime >= lyrics[currentLyricIndex].time
