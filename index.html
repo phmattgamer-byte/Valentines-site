@@ -101,10 +101,11 @@ Start 💖
 const audio = document.getElementById("audio");
 const lyricsDiv = document.getElementById("lyrics");
 const startButton = document.getElementById("startButton");
+const popup = document.getElementById("popup");
 
 let currentLyricIndex = 0;
 
-/* FULL lyrics timing — put all your lines here */
+/* FULL lyrics timing */
 const lyrics = [
 {time:0.00, text:"One, two, three, four"},
 {time:3.39, text:"So you're on the prowl, wondering whether she left already or not"},
@@ -159,25 +160,30 @@ const lyrics = [
 {time:231.09, text:"I LOVE YOU BABEE 💟"}
 ];
 
+/* Reset when replayed */
+audio.addEventListener("play", () => {
+    currentLyricIndex = 0;
+});
 
 /* Proper lyric update */
 audio.addEventListener("timeupdate", () => {
-    if (currentLyricIndex < lyrics.length &&
-        audio.currentTime >= lyrics[currentLyricIndex].time) {
-
+    if (
+        currentLyricIndex < lyrics.length &&
+        audio.currentTime >= lyrics[currentLyricIndex].time
+    ) {
         lyricsDiv.textContent = lyrics[currentLyricIndex].text;
         currentLyricIndex++;
     }
 });
 
-/* Start Button Logic */
+/* Start Button */
 function startExperience(){
     startButton.style.display = "none";
     audio.play();
 }
 
-    const popup = document.getElementById("popup");
-
+/* FIXED showMessage FUNCTION */
+function showMessage(message){
     popup.textContent = message;
     popup.style.display = "block";
 
@@ -185,9 +191,8 @@ function startExperience(){
         popup.style.display = "none";
     }, 8000);
 }
-
 </script>
 
-
+    
 </body>
 </html>
