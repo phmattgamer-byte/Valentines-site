@@ -196,14 +196,26 @@ audio.addEventListener("play", () => {
 
 /* Proper lyric update */
 audio.addEventListener("timeupdate", () => {
+audio.addEventListener("timeupdate", () => {
     if (
         currentLyricIndex < lyrics.length &&
         audio.currentTime >= lyrics[currentLyricIndex].time
     ) {
         lyricsDiv.textContent = lyrics[currentLyricIndex].text;
+
+        // Change picture safely
+        if (currentLyricIndex < pictures.length) {
+            photo.style.opacity = 0;
+            setTimeout(() => {
+                photo.src = pictures[currentLyricIndex];
+                photo.style.opacity = 1;
+            }, 500);
+        }
+
         currentLyricIndex++;
     }
 });
+
 
 /* Start Button */
 function startExperience(){
