@@ -1,188 +1,184 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Wyrielle ❤️</title>
+<title>For Wyrielle 💖</title>
 <style>
-    body {
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background: linear-gradient(135deg, #ffafc1, #ff78a9);
-        color: white;
-        text-align: center;
-        overflow: hidden;
-    }
-    h1 {
-        margin-top: 30px;
-        font-size: 2.5em;
-        animation: fadeIn 2s ease-in-out;
-    }
-    p {
-        font-size: 1.2em;
-        margin: 10px;
-    }
-    button {
-        margin: 8px;
-        padding: 10px 20px;
-        font-size: 1em;
-        border: none;
-        border-radius: 20px;
-        background: white;
-        color: #ff4e8c;
-        cursor: pointer;
-        transition: 0.3s ease;
-    }
-    button:hover {
-        background: #ffe3f0;
-        transform: scale(1.1);
-    }
-    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    .floating { position: absolute; user-select: none; }
-    #buttons { display: none; margin-top: 20px; }
-    #lyrics { margin-top: 20px; font-size: 1.4em; min-height: 50px; }
+body{
+    margin:0;
+    font-family: 'Segoe UI', sans-serif;
+    overflow:hidden;
+    background: radial-gradient(circle at top, #ff9ecf, #ff4e9b);
+    color:white;
+}
+#lyrics{
+    position:fixed;
+    bottom:15%;
+    left:50%;
+    transform:translateX(-50%);
+    width:90%;
+    font-size:1.2em;
+    text-shadow:0 0 15px white;
+    min-height:50px;
+    z-index:5;
+    transition:opacity 0.5s;
+}
+#photo{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 1.5s ease;
+    z-index:1;
+}
+#controls{
+    position:fixed;
+    bottom:5%;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    z-index:5;
+}
+button{
+    padding:12px 18px;
+    border:none;
+    border-radius:25px;
+    font-size:0.9em;
+    background:white;
+    color:#ff2f86;
+    cursor:pointer;
+    transition:0.3s;
+}
+button:active{transform:scale(0.9);}
+.finalGlow{
+    font-size:28px !important;
+    color:#ff8de1;
+    text-shadow:
+        0 0 10px #ff8de1,
+        0 0 20px #ff8de1,
+        0 0 40px #ff2ec4;
+    animation:pulseGlow 2s infinite alternate;
+}
+@keyframes pulseGlow{
+    from{transform:scale(1);}
+    to{transform:scale(1.05);}
+}
+.particle{
+    position:fixed;
+    width:8px;
+    height:8px;
+    background:pink;
+    border-radius:50%;
+    pointer-events:none;
+    animation:floatUp 1s linear forwards;
+}
+@keyframes floatUp{
+    to{transform:translateY(-100px);opacity:0;}
+}
 </style>
 </head>
 <body>
 
-<h1>For Wyrielle 💖</h1>
-<p>Tap the button below to see your surprise ❤️</p>
+<img id="photo">
+<div id="lyrics">Click any button to see my love 💖</div>
 
-<!-- First button -->
-<button id="startButton">🎁 Open Your Surprise</button>
-
-<!-- Lyrics Display -->
-<div id="lyrics"></div>
-
-<!-- Background Music -->
-<audio id="bgMusic" src="Paraluman.mp3" loop></audio>
-
-<!-- 20 Love Buttons -->
-<div id="buttons">
-    <button onclick="showLove('I love your smile, Wyrielle 😍')">Your beautiful smile</button>
-    <button onclick="showLove('I love how your laugh lights up everything 😂')">Your laugh</button>
-    <button onclick="showLove('I love thinking of you every moment ⏳')">I think of you</button>
-    <button onclick="showLove('I love your kindness and warmth ❤️')">Your kindness</button>
-    <button onclick="showLove('I love your hugs 🤗')">Your hugs</button>
-    <button onclick="showLove('I love our memories together 💭')">Our memories</button>
-    <button onclick="showLove('I love dreaming of our future together 🌟')">Our future</button>
-    <button onclick="showLove('I love how amazing you are 💯')">You’re amazing</button>
-    <button onclick="showLove('I love how you make everything better 💞')">You make it better</button>
-    <button onclick="showLove('I love every little thing about you ✨')">Every little thing</button>
-    <button onclick="showLove('I love how you brighten my days 🌞')">You brighten days</button>
-    <button onclick="showLove('I love how special you are 💎')">You’re special</button>
-    <button onclick="showLove('I love you more than words can say 💌')">Words can’t say</button>
-    <button onclick="showLove('I love your eyes that sparkle like stars 🌟')">Your sparkling eyes</button>
-    <button onclick="showLove('I love you with all my heart 💗')">All my heart</button>
-    <button onclick="showLove('I love how you feel like home 🏡')">You feel like home</button>
-    <button onclick="showLove('I love loving you 🥰')">I love loving you</button>
-    <button onclick="showLove('I love every second with you ⏰')">Every second</button>
-    <button onclick="showLove('I love our laughter together 😂💖')">Our laughter</button>
-    <button onclick="showLove('I love you forever and always 💞')">Forever & always</button>
+<div id="controls">
+    <button onclick="showMessage('Wyrielle, every time I see you, my heart skips a beat. You’re my everything 💞')">Message 1</button>
+    <button onclick="showMessage('You light up my world in ways I cannot explain 💗')">Message 2</button>
+    <button onclick="showMessage('Being with you makes every day feel magical ✨')">Message 3</button>
+    <button onclick="showMessage('You are my sunshine, my muse, my heart 💝')">Message 4</button>
+    <button onclick="showMessage('I fall for you more deeply with every heartbeat 💓')">Message 5</button>
+    <button onclick="showMessage('Your smile is my favorite sight in the world 🌸')">Message 6</button>
+    <button onclick="showMessage('Every moment with you feels like a dream come true 💖')">Message 7</button>
+    <button onclick="showMessage('I love the way your eyes sparkle like stars ✨')">Message 8</button>
+    <button onclick="showMessage('With you, life feels endless and beautiful 🌹')">Message 9</button>
+    <button onclick="showMessage('I promise to love you now and forever, my Wyrielle 💞')">Message 10</button>
+    <button onclick="showMessage('You are my heart, my soul, my everything 💗')">Message 11</button>
+    <button onclick="showMessage('Every laugh, every touch, every glance with you matters 💖')">Message 12</button>
+    <button onclick="showMessage('Being near you feels like coming home 🌸')">Message 13</button>
+    <button onclick="showMessage('I cherish every second I spend with you 💝')">Message 14</button>
+    <button onclick="showMessage('Your love makes me stronger, happier, complete 💞')">Message 15</button>
+    <button onclick="showMessage('You’re the most beautiful part of my life 💗')">Message 16</button>
+    <button onclick="showMessage('My heart belongs to you and only you 💖')">Message 17</button>
+    <button onclick="showMessage('You’re my dream, my muse, my forever 💓')">Message 18</button>
+    <button onclick="showMessage('I will love you endlessly and endlessly 💝')">Message 19</button>
+    <button onclick="showMessage('Wyrielle, you complete me in every way 💞')">Message 20</button>
 </div>
 
+<audio id="audio" src="anthem.mp3"></audio>
+
 <script>
-// Parse lyrics with timestamps
-const lyrics = [
-{ time: 26.19, text: "Sa unang tingin, agad na nahumaling" },
-{ time: 33.46, text: "Sa nagniningning mong mga mata" },
-{ time: 38.93, text: "Ika'y isang bituin na nagmula sa langit" },
-{ time: 47.71, text: "Hindi ko mawari ang taglay mong tinatangi" },
-{ time: 54.43, text: "Sadya namang nakakabighani" },
-{ time: 59.96, text: "'Di maipaliwanag ang nararamdaman (ooh)" },
-{ time: 67.95, text: "Namumukadkad ang aking ligaya" },
-{ time: 74.68, text: "Sa tuwing ika'y papalapit na" },
-{ time: 78.93, text: "Hawakan mo ang aking kamay" },
-{ time: 85.45, text: "Oh, Paraluman" },
-{ time: 88.68, text: "Ika'y akin nang dadalhin sa" },
-{ time: 93.94, text: "'Di mo inaasahang paraiso (hoo-hoo)" },
-{ time: 101.96, text: "Palagi kitang aawitan ng Kundiman" },
-{ time: 107.22, text: "'Di magsasawa, 'di ka pababayaan" },
-{ time: 112.20, text: "Isasayaw kita hanggang sa walang hanggan (hoo-hoo, hoo-hoo)" },
-{ time: 122.43, text: "Mga gunita na laging naiisip (naiisip)" },
-{ time: 129.96, text: "Sumisilip (sumisilip) ang itinakda ng mahiwaga" },
-{ time: 139.94, text: "Liwanag na dulot mo, nagbigay sinag sa madilim kong mundo (ooh-ooh-oh)" },
-{ time: 144.92, text: "Ibang-iba ako kapag ikaw na ang kapiling" },
-{ time: 148.93, text: "Sumisiping ang buwan at mga bituin" },
-{ time: 151.43, text: "Na para bang sumasang-ayon sa atin ang kalawakan (kalawakan)" },
-{ time: 159.68, text: "Namumukadkad ang aking ligaya" },
-{ time: 165.43, text: "Sa tuwing ika'y papalapit na" },
-{ time: 170.18, text: "Hawakan mo ang aking kamay (hoo-hoo)" },
-{ time: 176.16, text: "Oh, Paraluman" },
-{ time: 179.47, text: "Ika'y akin nang dadalhin sa" },
-{ time: 184.68, text: "'Di mo inaasahang paraiso (paraiso, hoo-hoo)" },
-{ time: 192.42, text: "Palagi kitang aawitan ng Kundiman" },
-{ time: 198.18, text: "'Di magsasawa, 'di ka pababayaan" },
-{ time: 202.92, text: "Isasayaw kita hanggang sa walang hanggan (hoo-hoo, hoo-hoo)" },
-{ time: 213.94, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
-{ time: 216.43, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
-{ time: 218.42, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
-{ time: 221.18, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
-{ time: 222.45, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
-{ time: 223.94, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
-{ time: 225.41, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
-{ time: 230.68, text: "Himig ng tadhana (ah, ah)" },
-{ time: 235.18, text: "Sa atin ay tumutugma na (tumutugma na)" },
-{ time: 240.91, text: "Himig ng tadhana (ah, ah)" },
-{ time: 245.69, text: "Sa atin ay tumutugma na (tumutugma na)" },
-{ time: 251.92, text: "Himig ng tadhana (ah, ah)" },
-{ time: 256.40, text: "Sa atin ay tumutugma na (ooh-ooh-ooh, hoo-hoo, hoo)" },
-{ time: 272.91, text: "Oh, Paraluman" },
-{ time: 275.68, text: "Ika'y akin nang dadalhin sa" },
-{ time: 280.65, text: "'Di mo inaasahang paraiso" },
-{ time: 288.64, text: "Palagi kitang aawitan ng Kundiman" },
-{ time: 294.42, text: "'Di magsasawa, 'di ka pababayaan" },
-{ time: 299.16, text: "Isasayaw kita, mamahalin kita" },
-{ time: 307.62, text: "Hanggang sa walang hanggan (hoo-hoo, hoo-hoo)" }
-];
-
-// Elements
-const audio = document.getElementById("bgMusic");
+const audio = document.getElementById("audio");
 const lyricsDiv = document.getElementById("lyrics");
+const photo = document.getElementById("photo");
+const controls = document.getElementById("controls");
 
-// Start button logic
-document.getElementById("startButton").onclick = function() {
-    this.style.display = "none";               // Hide first button
-    audio.play();                               // Start music
-    document.getElementById("buttons").style.display = "block"; // Show 20 buttons
-    startAnimation();                           // Start hearts/confetti
-    startLyrics();                              // Start updating lyrics
-};
+audio.play();
 
-// Floating hearts/confetti
-function startAnimation() {
-    for (let i = 0; i < 40; i++) {
-        let div = document.createElement("div");
-        div.className = "floating";
-        div.style.left = Math.random() * 100 + "vw";
-        div.style.top = Math.random() * 100 + "vh";
-        div.style.fontSize = (Math.random() * 30 + 15) + "px";
-        div.textContent = i % 2 === 0 ? "❤️" : "🎉";
-        document.body.appendChild(div);
-        animateFloating(div);
+/* Particle effect on button click */
+function showMessage(msg){
+    lyricsDiv.textContent = msg;
+    for(let i=0;i<12;i++){
+        let particle = document.createElement("div");
+        particle.className="particle";
+        particle.style.left = Math.random()*100+"vw";
+        particle.style.top = Math.random()*100+"vh";
+        particle.style.width = particle.style.height = (10+Math.random()*10)+"px";
+        document.body.appendChild(particle);
+        setTimeout(()=>particle.remove(),1000);
     }
 }
-function animateFloating(el) {
-    let x = Math.random() * 200 - 100;
-    let y = Math.random() * 200 - 100;
-    el.animate([{ transform: `translate(0,0)` }, { transform: `translate(${x}px, ${y}px)` }],
-               { duration: Math.random()*4000+4000, iterations: Infinity, direction: "alternate" });
-}
 
-// Show love message
-function showLove(msg) { alert(msg); }
+/* Timeline for pictures + button removal */
+const timeline = [
+    {t:3.39, img:"picture1.jpeg"},
+    {t:35.39, img:"picture2.jpeg"},
+    {t:58.19, img:"picture3.jpeg"},
+    {t:78, img:"picture4.jpeg"},
+    {t:109, img:"picture6.jpeg"},
+    {t:145, removeButtons:true}, // 2:25 remove buttons
+    {t:231, img:"picture25.jpeg", final:true} // cinematic glow
+];
 
-// Lyrics update
-function startLyrics() {
-    setInterval(() => {
-        let currentTime = audio.currentTime;
-        let line = "";
-        for (let i = 0; i < lyrics.length; i++) {
-            if (currentTime >= lyrics[i].time) line = lyrics[i].text;
+let currentIndex = 0;
+audio.ontimeupdate = function(){
+    let current = audio.currentTime;
+
+    if(currentIndex < timeline.length && current >= timeline[currentIndex].t){
+        const event = timeline[currentIndex];
+
+        if(event.img){
+            photo.style.opacity = 0;
+            setTimeout(()=>{
+                photo.src = event.img;
+                photo.style.opacity = 1;
+            },600);
         }
-        lyricsDiv.textContent = line;
-    }, 200);
-}
+
+        if(event.removeButtons){
+            controls.style.display="none";
+        }
+
+        if(event.final){
+            lyricsDiv.classList.add("finalGlow");
+            // optional zoom fade
+            photo.style.transform = "scale(1.1)";
+            let fadeAudio = setInterval(()=>{
+                if(audio.volume>0.05){ audio.volume-=0.05; }
+                else{ clearInterval(fadeAudio); }
+            },400);
+        }
+
+        currentIndex++;
+    }
+};
 </script>
 
 </body>
