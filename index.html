@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -21,7 +21,6 @@
     p {
         font-size: 1.2em;
         margin: 10px;
-        opacity: 1;
     }
     button {
         margin: 8px;
@@ -38,18 +37,10 @@
         background: #ffe3f0;
         transform: scale(1.1);
     }
-    @keyframes fadeIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-    .floating {
-        position: absolute;
-        user-select: none;
-    }
-    #buttons {
-        display: none; /* hidden at start */
-        margin-top: 20px;
-    }
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    .floating { position: absolute; user-select: none; }
+    #buttons { display: none; margin-top: 20px; }
+    #lyrics { margin-top: 20px; font-size: 1.4em; min-height: 50px; }
 </style>
 </head>
 <body>
@@ -59,6 +50,9 @@
 
 <!-- First button -->
 <button id="startButton">🎁 Open Your Surprise</button>
+
+<!-- Lyrics Display -->
+<div id="lyrics"></div>
 
 <!-- Background Music -->
 <audio id="bgMusic" src="Paraluman.mp3" loop></audio>
@@ -88,15 +82,74 @@
 </div>
 
 <script>
-// Button interaction
-document.getElementById("startButton").onclick = function() {
-    this.style.display = "none";               // Hide the first button
-    document.getElementById("bgMusic").play(); // Play music
-    document.getElementById("buttons").style.display = "block"; // Show all buttons
-    startAnimation();                          // Start hearts/confetti
-}
+// Parse lyrics with timestamps
+const lyrics = [
+{ time: 26.19, text: "Sa unang tingin, agad na nahumaling" },
+{ time: 33.46, text: "Sa nagniningning mong mga mata" },
+{ time: 38.93, text: "Ika'y isang bituin na nagmula sa langit" },
+{ time: 47.71, text: "Hindi ko mawari ang taglay mong tinatangi" },
+{ time: 54.43, text: "Sadya namang nakakabighani" },
+{ time: 59.96, text: "'Di maipaliwanag ang nararamdaman (ooh)" },
+{ time: 67.95, text: "Namumukadkad ang aking ligaya" },
+{ time: 74.68, text: "Sa tuwing ika'y papalapit na" },
+{ time: 78.93, text: "Hawakan mo ang aking kamay" },
+{ time: 85.45, text: "Oh, Paraluman" },
+{ time: 88.68, text: "Ika'y akin nang dadalhin sa" },
+{ time: 93.94, text: "'Di mo inaasahang paraiso (hoo-hoo)" },
+{ time: 101.96, text: "Palagi kitang aawitan ng Kundiman" },
+{ time: 107.22, text: "'Di magsasawa, 'di ka pababayaan" },
+{ time: 112.20, text: "Isasayaw kita hanggang sa walang hanggan (hoo-hoo, hoo-hoo)" },
+{ time: 122.43, text: "Mga gunita na laging naiisip (naiisip)" },
+{ time: 129.96, text: "Sumisilip (sumisilip) ang itinakda ng mahiwaga" },
+{ time: 139.94, text: "Liwanag na dulot mo, nagbigay sinag sa madilim kong mundo (ooh-ooh-oh)" },
+{ time: 144.92, text: "Ibang-iba ako kapag ikaw na ang kapiling" },
+{ time: 148.93, text: "Sumisiping ang buwan at mga bituin" },
+{ time: 151.43, text: "Na para bang sumasang-ayon sa atin ang kalawakan (kalawakan)" },
+{ time: 159.68, text: "Namumukadkad ang aking ligaya" },
+{ time: 165.43, text: "Sa tuwing ika'y papalapit na" },
+{ time: 170.18, text: "Hawakan mo ang aking kamay (hoo-hoo)" },
+{ time: 176.16, text: "Oh, Paraluman" },
+{ time: 179.47, text: "Ika'y akin nang dadalhin sa" },
+{ time: 184.68, text: "'Di mo inaasahang paraiso (paraiso, hoo-hoo)" },
+{ time: 192.42, text: "Palagi kitang aawitan ng Kundiman" },
+{ time: 198.18, text: "'Di magsasawa, 'di ka pababayaan" },
+{ time: 202.92, text: "Isasayaw kita hanggang sa walang hanggan (hoo-hoo, hoo-hoo)" },
+{ time: 213.94, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
+{ time: 216.43, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
+{ time: 218.42, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
+{ time: 221.18, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
+{ time: 222.45, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
+{ time: 223.94, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
+{ time: 225.41, text: "Para-pa-pa-para-Paraluman (hoo-hoo, hoo-hoo)" },
+{ time: 230.68, text: "Himig ng tadhana (ah, ah)" },
+{ time: 235.18, text: "Sa atin ay tumutugma na (tumutugma na)" },
+{ time: 240.91, text: "Himig ng tadhana (ah, ah)" },
+{ time: 245.69, text: "Sa atin ay tumutugma na (tumutugma na)" },
+{ time: 251.92, text: "Himig ng tadhana (ah, ah)" },
+{ time: 256.40, text: "Sa atin ay tumutugma na (ooh-ooh-ooh, hoo-hoo, hoo)" },
+{ time: 272.91, text: "Oh, Paraluman" },
+{ time: 275.68, text: "Ika'y akin nang dadalhin sa" },
+{ time: 280.65, text: "'Di mo inaasahang paraiso" },
+{ time: 288.64, text: "Palagi kitang aawitan ng Kundiman" },
+{ time: 294.42, text: "'Di magsasawa, 'di ka pababayaan" },
+{ time: 299.16, text: "Isasayaw kita, mamahalin kita" },
+{ time: 307.62, text: "Hanggang sa walang hanggan (hoo-hoo, hoo-hoo)" }
+];
 
-// Floating hearts + confetti
+// Elements
+const audio = document.getElementById("bgMusic");
+const lyricsDiv = document.getElementById("lyrics");
+
+// Start button logic
+document.getElementById("startButton").onclick = function() {
+    this.style.display = "none";               // Hide first button
+    audio.play();                               // Start music
+    document.getElementById("buttons").style.display = "block"; // Show 20 buttons
+    startAnimation();                           // Start hearts/confetti
+    startLyrics();                              // Start updating lyrics
+};
+
+// Floating hearts/confetti
 function startAnimation() {
     for (let i = 0; i < 40; i++) {
         let div = document.createElement("div");
@@ -104,30 +157,31 @@ function startAnimation() {
         div.style.left = Math.random() * 100 + "vw";
         div.style.top = Math.random() * 100 + "vh";
         div.style.fontSize = (Math.random() * 30 + 15) + "px";
-        if (i % 2 === 0) div.textContent = "❤️"; 
-        else div.textContent = "🎉";
+        div.textContent = i % 2 === 0 ? "❤️" : "🎉";
         document.body.appendChild(div);
         animateFloating(div);
     }
 }
-
-// Animate movement
 function animateFloating(el) {
     let x = Math.random() * 200 - 100;
     let y = Math.random() * 200 - 100;
-    el.animate([
-        { transform: `translate(0,0)` },
-        { transform: `translate(${x}px, ${y}px)` }
-    ], { 
-        duration: Math.random() * 4000 + 4000,
-        iterations: Infinity,
-        direction: "alternate"
-    });
+    el.animate([{ transform: `translate(0,0)` }, { transform: `translate(${x}px, ${y}px)` }],
+               { duration: Math.random()*4000+4000, iterations: Infinity, direction: "alternate" });
 }
 
-// Button messages
-function showLove(msg) {
-    alert(msg);
+// Show love message
+function showLove(msg) { alert(msg); }
+
+// Lyrics update
+function startLyrics() {
+    setInterval(() => {
+        let currentTime = audio.currentTime;
+        let line = "";
+        for (let i = 0; i < lyrics.length; i++) {
+            if (currentTime >= lyrics[i].time) line = lyrics[i].text;
+        }
+        lyricsDiv.textContent = line;
+    }, 200);
 }
 </script>
 
