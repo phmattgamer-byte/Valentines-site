@@ -204,15 +204,12 @@ audio.addEventListener("timeupdate", () => {
 
         // Change picture safely
         if (currentLyricIndex < pictures.length) {
-            photo.style.opacity = 0;
-            setTimeout(() => {
-                photo.src = pictures[currentLyricIndex];
-                photo.style.opacity = 1;
-            }, 500);
-        }
-
-        currentLyricIndex++;
-    }
+    photo.style.opacity = 0;
+    setTimeout(() => {
+        photo.src = pictures[currentLyricIndex];
+        photo.style.opacity = 1;
+    }, 500);
+}
 });
 
 
