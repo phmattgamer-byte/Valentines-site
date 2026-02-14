@@ -94,40 +94,58 @@ button:active{ transform:scale(0.95); }
 <script>
 const audio = document.getElementById("audio");
 const lyricsDiv = document.getElementById("lyrics");
-const popup = document.getElementById("popup");
-const photo = document.getElementById("photo");
+const startButton = document.getElementById("startButton");
 
-/* Example simple lyric timing (replace with your LRC system later) */
+let currentLyricIndex = 0;
+
+/* FULL lyrics timing — put all your lines here */
 const lyrics = [
     {time:0, text:"One, two, three, four"},
-    {time:3, text:"So you're on the prowl..."},
-    {time:18, text:"Sunglasses indoors..."},
-    {time:35, text:"Call off the search..."},
-    {time:58, text:"Her eyes invite you..."},
-    {time:78, text:"Number one party anthem"}
+    {time:3.39, text:"So you're on the prowl..."},
+    {time:18.78, text:"Sunglasses indoors..."},
+    {time:35.39, text:"Call off the search..."},
+    {time:58.19, text:"Her eyes invite you..."},
+    {time:78.00, text:"Number one party anthem"},
+    {time:86.78, text:"She's a certified mind blower..."},
+    {time:109.07, text:"I just want you to do me no good"},
+    {time:114.50, text:"And you look like you could"},
+    {time:137.60, text:"Before the moment's gone"},
+    {time:145.00, text:"Yeah, yeah"},
+    {time:149.03, text:"The look of love"},
+    {time:151.04, text:"The rush of blood"},
+    {time:153.18, text:'The "She\'s with me"s'},
+    {time:155.00, text:"The Gallic shrug"},
+    {time:157.35, text:"The shutterbugs"},
+    {time:159.44, text:"The Camera+"},
+    {time:161.50, text:"The black-and-white and the colour dodge"},
+    {time:171.66, text:"The number one party anthem, oh"},
+    {time:195.93, text:"Come on, come on, come on"},
+    {time:200.26, text:"Come on, come on, come on"},
+    {time:204.30, text:"Come on, come on, come on"},
+    {time:208.58, text:"Come on, come on, come on"},
+    {time:212.76, text:"Before the moment's gone"},
+    {time:215.89, text:"Number one party anthem"},
+    {time:229.34, text:"Yeah, yeah"},
+    {time:231.09, text:"I LOVE YOU BABEE 💟"}
 ];
 
-audio.ontimeupdate = function(){
-    let current = audio.currentTime;
-    for(let i=0;i<lyrics.length;i++){
-        if(current >= lyrics[i].time){
-            lyricsDiv.textContent = lyrics[i].text;
-        }
+/* Proper lyric update */
+audio.addEventListener("timeupdate", () => {
+    if (currentLyricIndex < lyrics.length &&
+        audio.currentTime >= lyrics[currentLyricIndex].time) {
+
+        lyricsDiv.textContent = lyrics[currentLyricIndex].text;
+        currentLyricIndex++;
     }
-};
+});
 
-/* Show floating message WITHOUT stopping lyrics */
-function showMessage(message){
-    if(audio.paused) audio.play();
-
-    popup.textContent = message;
-    popup.style.display = "block";
-
-    setTimeout(()=>{
-        popup.style.display = "none";
-    },8000); // message visible 8 seconds
+/* Start Button Logic */
+function startExperience(){
+    startButton.style.display = "none";
+    audio.play();
 }
 </script>
+
 
 </body>
 </html>
