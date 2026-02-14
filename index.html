@@ -7,22 +7,19 @@
 <style>
 body{
     margin:0;
-    font-family: 'Segoe UI', sans-serif;
-    overflow:hidden;
-    background: radial-gradient(circle at top, #ff9ecf, #ff4e9b);
+    font-family:'Segoe UI', sans-serif;
+    background:black;
     color:white;
+    overflow:hidden;
 }
 #lyrics{
     position:fixed;
     bottom:15%;
-    left:50%;
-    transform:translateX(-50%);
-    width:90%;
-    font-size:1.2em;
+    width:100%;
+    text-align:center;
+    font-size:1.3em;
     text-shadow:0 0 15px white;
     min-height:50px;
-    z-index:5;
-    transition:opacity 0.5s;
 }
 #photo{
     position:fixed;
@@ -33,37 +30,34 @@ body{
     object-fit:cover;
     opacity:0;
     transition:opacity 1.5s ease;
-    z-index:1;
+    z-index:-1;
 }
 #controls{
     position:fixed;
     bottom:5%;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:8px;
+    width:100%;
+    text-align:center;
     z-index:5;
 }
 button{
-    padding:12px 18px;
+    margin:5px;
+    padding:10px 20px;
     border:none;
     border-radius:25px;
-    font-size:0.9em;
     background:white;
     color:#ff2f86;
+    font-size:1em;
     cursor:pointer;
-    transition:0.3s;
+    transition:0.2s;
 }
-button:active{transform:scale(0.9);}
+button:active{transform:scale(0.95);}
 .finalGlow{
-    font-size:28px !important;
+    font-size:28px;
     color:#ff8de1;
     text-shadow:
         0 0 10px #ff8de1,
-        0 0 20px #ff8de1,
-        0 0 40px #ff2ec4;
+        0 0 25px #ff8de1,
+        0 0 50px #ff2ec4;
     animation:pulseGlow 2s infinite alternate;
 }
 @keyframes pulseGlow{
@@ -87,29 +81,33 @@ button:active{transform:scale(0.9);}
 <body>
 
 <img id="photo">
-<div id="lyrics">Click any button to see my love 💖</div>
+<div id="lyrics">Click "Start Our Anthem 💖" to begin!</div>
 
 <div id="controls">
-    <button onclick="showMessage('Wyrielle, every time I see you, my heart skips a beat. You’re my everything 💞')">Message 1</button>
-    <button onclick="showMessage('You light up my world in ways I cannot explain 💗')">Message 2</button>
-    <button onclick="showMessage('Being with you makes every day feel magical ✨')">Message 3</button>
-    <button onclick="showMessage('You are my sunshine, my muse, my heart 💝')">Message 4</button>
-    <button onclick="showMessage('I fall for you more deeply with every heartbeat 💓')">Message 5</button>
-    <button onclick="showMessage('Your smile is my favorite sight in the world 🌸')">Message 6</button>
-    <button onclick="showMessage('Every moment with you feels like a dream come true 💖')">Message 7</button>
-    <button onclick="showMessage('I love the way your eyes sparkle like stars ✨')">Message 8</button>
-    <button onclick="showMessage('With you, life feels endless and beautiful 🌹')">Message 9</button>
-    <button onclick="showMessage('I promise to love you now and forever, my Wyrielle 💞')">Message 10</button>
-    <button onclick="showMessage('You are my heart, my soul, my everything 💗')">Message 11</button>
-    <button onclick="showMessage('Every laugh, every touch, every glance with you matters 💖')">Message 12</button>
-    <button onclick="showMessage('Being near you feels like coming home 🌸')">Message 13</button>
-    <button onclick="showMessage('I cherish every second I spend with you 💝')">Message 14</button>
-    <button onclick="showMessage('Your love makes me stronger, happier, complete 💞')">Message 15</button>
-    <button onclick="showMessage('You’re the most beautiful part of my life 💗')">Message 16</button>
-    <button onclick="showMessage('My heart belongs to you and only you 💖')">Message 17</button>
-    <button onclick="showMessage('You’re my dream, my muse, my forever 💓')">Message 18</button>
-    <button onclick="showMessage('I will love you endlessly and endlessly 💝')">Message 19</button>
-    <button onclick="showMessage('Wyrielle, you complete me in every way 💞')">Message 20</button>
+    <button id="startBtn">Start Our Anthem 💖</button>
+    <div id="messageButtons" style="display:none; flex-wrap:wrap; justify-content:center; margin-top:15px;">
+        <!-- 20 love message buttons -->
+        <button onclick="showMessage('Wyrielle, every time I see you, my heart skips a beat 💞')">Message 1</button>
+        <button onclick="showMessage('You light up my world in ways I cannot explain 💗')">Message 2</button>
+        <button onclick="showMessage('Being with you makes every day feel magical ✨')">Message 3</button>
+        <button onclick="showMessage('You are my sunshine, my muse, my heart 💝')">Message 4</button>
+        <button onclick="showMessage('I fall for you more deeply with every heartbeat 💓')">Message 5</button>
+        <button onclick="showMessage('Your smile is my favorite sight in the world 🌸')">Message 6</button>
+        <button onclick="showMessage('Every moment with you feels like a dream come true 💖')">Message 7</button>
+        <button onclick="showMessage('I love the way your eyes sparkle like stars ✨')">Message 8</button>
+        <button onclick="showMessage('With you, life feels endless and beautiful 🌹')">Message 9</button>
+        <button onclick="showMessage('I promise to love you now and forever, my Wyrielle 💞')">Message 10</button>
+        <button onclick="showMessage('You are my heart, my soul, my everything 💗')">Message 11</button>
+        <button onclick="showMessage('Every laugh, every touch, every glance with you matters 💖')">Message 12</button>
+        <button onclick="showMessage('Being near you feels like coming home 🌸')">Message 13</button>
+        <button onclick="showMessage('I cherish every second I spend with you 💝')">Message 14</button>
+        <button onclick="showMessage('Your love makes me stronger, happier, complete 💞')">Message 15</button>
+        <button onclick="showMessage('You’re the most beautiful part of my life 💗')">Message 16</button>
+        <button onclick="showMessage('My heart belongs to you and only you 💖')">Message 17</button>
+        <button onclick="showMessage('You’re my dream, my muse, my forever 💓')">Message 18</button>
+        <button onclick="showMessage('I will love you endlessly and endlessly 💝')">Message 19</button>
+        <button onclick="showMessage('Wyrielle, you complete me in every way 💞')">Message 20</button>
+    </div>
 </div>
 
 <audio id="audio" src="anthem.mp3"></audio>
@@ -118,64 +116,83 @@ button:active{transform:scale(0.9);}
 const audio = document.getElementById("audio");
 const lyricsDiv = document.getElementById("lyrics");
 const photo = document.getElementById("photo");
-const controls = document.getElementById("controls");
+const startBtn = document.getElementById("startBtn");
+const messageButtons = document.getElementById("messageButtons");
 
-audio.play();
+/* Show messages after starting */
+startBtn.onclick = function(){
+    audio.play();
+    startBtn.style.display="none";
+    messageButtons.style.display="flex";
+};
 
-/* Particle effect on button click */
+/* Show message + particle effect */
 function showMessage(msg){
     lyricsDiv.textContent = msg;
-    for(let i=0;i<12;i++){
-        let particle = document.createElement("div");
-        particle.className="particle";
-        particle.style.left = Math.random()*100+"vw";
-        particle.style.top = Math.random()*100+"vh";
-        particle.style.width = particle.style.height = (10+Math.random()*10)+"px";
-        document.body.appendChild(particle);
-        setTimeout(()=>particle.remove(),1000);
+    for(let i=0;i<10;i++){
+        let p = document.createElement("div");
+        p.className="particle";
+        p.style.left = Math.random()*100+"vw";
+        p.style.top = Math.random()*100+"vh";
+        p.style.width = p.style.height = (8+Math.random()*8)+"px";
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(),1000);
     }
 }
 
-/* Timeline for pictures + button removal */
-const timeline = [
-    {t:3.39, img:"picture1.jpeg"},
-    {t:35.39, img:"picture2.jpeg"},
-    {t:58.19, img:"picture3.jpeg"},
-    {t:78, img:"picture4.jpeg"},
-    {t:109, img:"picture6.jpeg"},
-    {t:145, removeButtons:true}, // 2:25 remove buttons
-    {t:231, img:"picture25.jpeg", final:true} // cinematic glow
-];
+/* Load lyrics.lrc */
+let lyricsData=[];
+fetch("lyrics.lrc")
+.then(res=>res.text())
+.then(text=>{
+    const lines=text.split("\n");
+    lines.forEach(line=>{
+        const match=line.match(/\[(\d+):(\d+\.\d+)\](.*)/);
+        if(match){
+            const min=parseInt(match[1]);
+            const sec=parseFloat(match[2]);
+            const time=min*60+sec;
+            let content=match[3].trim();
+            let img=null;
+            let removeButtons=false;
+            let cinematicEnd=false;
 
-let currentIndex = 0;
-audio.ontimeupdate = function(){
-    let current = audio.currentTime;
+            if(content.includes("{")){
+                let command=content.match(/\{(.*)\}/)[1];
+                if(command.includes(".jpeg")) img=command;
+                if(command=="REMOVE_BUTTONS") removeButtons=true;
+                if(command=="CINEMATIC_END") cinematicEnd=true;
+                content=content.replace(/\{.*\}/,"").trim();
+            }
 
-    if(currentIndex < timeline.length && current >= timeline[currentIndex].t){
-        const event = timeline[currentIndex];
+            lyricsData.push({time,text:content,img,removeButtons,cinematicEnd});
+        }
+    });
+});
 
+/* Sync lyrics + pictures */
+let currentIndex=0;
+audio.ontimeupdate=function(){
+    let t=audio.currentTime;
+    while(currentIndex<lyricsData.length && t>=lyricsData[currentIndex].time){
+        const event=lyricsData[currentIndex];
+        if(event.text) lyricsDiv.textContent=event.text;
         if(event.img){
-            photo.style.opacity = 0;
+            photo.style.opacity=0;
             setTimeout(()=>{
-                photo.src = event.img;
-                photo.style.opacity = 1;
-            },600);
+                photo.src=event.img;
+                photo.style.opacity=1;
+            },500);
         }
-
-        if(event.removeButtons){
-            controls.style.display="none";
-        }
-
-        if(event.final){
+        if(event.removeButtons) messageButtons.style.display="none";
+        if(event.cinematicEnd){
             lyricsDiv.classList.add("finalGlow");
-            // optional zoom fade
-            photo.style.transform = "scale(1.1)";
-            let fadeAudio = setInterval(()=>{
-                if(audio.volume>0.05){ audio.volume-=0.05; }
-                else{ clearInterval(fadeAudio); }
+            photo.style.transform="scale(1.1)";
+            let fadeAudio=setInterval(()=>{
+                if(audio.volume>0.05) audio.volume-=0.05;
+                else clearInterval(fadeAudio);
             },400);
         }
-
         currentIndex++;
     }
 };
