@@ -150,6 +150,17 @@ function startExperience(){
     startButton.style.display = "none";
     audio.play();
 }
+    function showMessage(message){
+    const popup = document.getElementById("popup");
+
+    popup.textContent = message;
+    popup.style.display = "block";
+
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 8000);
+}
+
 </script>
 
 
