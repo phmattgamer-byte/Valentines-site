@@ -232,6 +232,22 @@ audio.addEventListener("timeupdate", () => {
     ) {
         lyricsDiv.textContent = lyrics[currentLyricIndex].text;
 
+        // Picture timing control
+     
+    if (
+    currentPictureIndex < pictureTimeline.length &&
+    audio.currentTime >= pictureTimeline[currentPictureIndex].time
+) {
+    photo.style.opacity = 0;
+
+    setTimeout(() => {
+        photo.src = pictureTimeline[currentPictureIndex].src;
+        photo.style.opacity = 1;
+    }, 500);
+
+    currentPictureIndex++;
+}
+
         // Change picture safely
         if (currentLyricIndex < pictures.length) {
     photo.style.opacity = 0;
