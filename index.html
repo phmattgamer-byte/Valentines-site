@@ -1,139 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Wyrielle 💖</title>
+
 <style>
-body {
+body{
     margin:0;
-    font-family:'Segoe UI', sans-serif;
     background:black;
     color:white;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
+    font-family:Segoe UI, sans-serif;
+    text-align:center;
     overflow-x:hidden;
 }
-#photo {
+
+/* Picture */
+#photo{
     width:100%;
     max-height:50vh;
     object-fit:cover;
-    opacity:0;
     transition:opacity 1.5s ease;
 }
-#lyrics {
-    width:90%;
-    text-align:center;
+
+/* Lyrics */
+#lyrics{
+    margin:15px;
     font-size:1.3em;
-    text-shadow:0 0 15px white;
-    margin-top:15px;
     min-height:60px;
+    text-shadow:0 0 10px white;
 }
-#controls {
-    margin-top:20px;
-    display:flex;
-    flex-direction:column;
+
+/* Button grid */
+#controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
     gap:12px;
+    width:90%;
+    margin:20px auto;
 }
-button {
-    padding:12px 20px;
+
+button{
+    padding:14px;
     border:none;
     border-radius:25px;
-    font-size:1em;
     background:white;
     color:#ff2f86;
+    font-size:1em;
     cursor:pointer;
     transition:0.2s;
 }
-button:active { transform:scale(0.95);}
-.particle {
+button:active{ transform:scale(0.95); }
+
+/* Floating Message */
+#popup{
     position:fixed;
-    width:8px;
-    height:8px;
-    background:pink;
-    border-radius:50%;
-    pointer-events:none;
-    animation:floatUp 1s linear forwards;
+    bottom:20%;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(0,0,0,0.85);
+    padding:20px;
+    border-radius:20px;
+    width:80%;
+    font-size:1.2em;
+    display:none;
+    animation:fadeIn 1s ease;
+    box-shadow:0 0 25px #ff4dc4;
 }
-@keyframes floatUp {
-    to { transform:translateY(-100px); opacity:0; }
-}
-.finalGlow{
-    font-size:28px;
-    color:#ff8de1;
-    text-shadow:0 0 10px #ff8de1,0 0 25px #ff8de1,0 0 50px #ff2ec4;
-    animation:pulseGlow 2s infinite alternate;
-}
-@keyframes pulseGlow {
-    from { transform:scale(1);}
-    to { transform:scale(1.05);}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translate(-50%,20px);}
+    to{opacity:1; transform:translate(-50%,0);}
 }
 </style>
 </head>
 <body>
 
 <img id="photo" src="picture1.jpeg">
-<div id="lyrics">Click a message below to see my love 💖</div>
+
+<div id="lyrics">Waiting for the music to start... 💖</div>
 
 <div id="controls">
-    <button onclick="showMessage('Wyrielle, every time I see you, my heart skips a beat. You make my world brighter than I ever imagined 💞')">Message 1</button>
-    <button onclick="showMessage('You light up my world in ways I cannot explain. My love for you grows every single day 💗')">Message 2</button>
-    <button onclick="showMessage('Being with you makes every day feel magical. I promise to cherish you forever 💖')">Message 3</button>
-    <button onclick="showMessage('Wyrielle, you are my sunshine, my muse, my heart. I will love you endlessly 💝')">Message 4</button>
+    <button onclick="showMessage('Wyrielle, every time I see you, my heart skips a beat 💞')">Message 1</button>
+    <button onclick="showMessage('You make my world brighter than I ever imagined 💗')">Message 2</button>
+    <button onclick="showMessage('Being with you feels like magic every day 💖')">Message 3</button>
+    <button onclick="showMessage('I will always cherish you and love you endlessly 💝')">Message 4</button>
 </div>
+
+<div id="popup"></div>
 
 <audio id="audio" src="anthem.mp3"></audio>
 
 <script>
 const audio = document.getElementById("audio");
 const lyricsDiv = document.getElementById("lyrics");
+const popup = document.getElementById("popup");
 const photo = document.getElementById("photo");
-const controls = document.getElementById("controls");
 
-function showMessage(msg){
-    // Play music if not already
-    if(audio.paused) audio.play();
+/* Example simple lyric timing (replace with your LRC system later) */
+const lyrics = [
+    {time:0, text:"One, two, three, four"},
+    {time:3, text:"So you're on the prowl..."},
+    {time:18, text:"Sunglasses indoors..."},
+    {time:35, text:"Call off the search..."},
+    {time:58, text:"Her eyes invite you..."},
+    {time:78, text:"Number one party anthem"}
+];
 
-    // Hide buttons
-    controls.style.display = "none";
-
-    // Show message in lyrics
-    lyricsDiv.textContent = msg;
-
-    // Sparkles
-    for(let i=0;i<10;i++){
-        let p = document.createElement("div");
-        p.className="particle";
-        p.style.left = Math.random()*100 + "vw";
-        p.style.top = Math.random()*100 + "vh";
-        p.style.width = p.style.height = (8+Math.random()*8) + "px";
-        document.body.appendChild(p);
-        setTimeout(()=>p.remove(),1000);
-    }
-
-    // Auto-reset to next picture/lyrics or leave as final
-    setTimeout(()=>{
-        lyricsDiv.textContent = "Click a message to see my love 💖";
-        controls.style.display = "flex";
-    },12000); // show message for 12 seconds (adjust as needed)
-}
-
-// Optional: cycle pictures while audio plays
-let pictures = ["picture1.jpeg","picture2.jpeg","picture3.jpeg","picture4.jpeg"];
-let picIndex = 0;
 audio.ontimeupdate = function(){
-    let t = audio.currentTime;
-    if(picIndex < pictures.length && t > picIndex*10){ // change every 10 seconds
-        photo.style.opacity = 0;
-        setTimeout(()=>{
-            photo.src = pictures[picIndex];
-            photo.style.opacity = 1;
-        },500);
-        picIndex++;
+    let current = audio.currentTime;
+    for(let i=0;i<lyrics.length;i++){
+        if(current >= lyrics[i].time){
+            lyricsDiv.textContent = lyrics[i].text;
+        }
     }
 };
+
+/* Show floating message WITHOUT stopping lyrics */
+function showMessage(message){
+    if(audio.paused) audio.play();
+
+    popup.textContent = message;
+    popup.style.display = "block";
+
+    setTimeout(()=>{
+        popup.style.display = "none";
+    },8000); // message visible 8 seconds
+}
 </script>
 
 </body>
